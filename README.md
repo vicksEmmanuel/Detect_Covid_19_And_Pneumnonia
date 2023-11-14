@@ -19,9 +19,10 @@
 
 ### Decision
 
-1.  What kind of model do we use to train and why
-2.  Cleaning and preparation of data
-3.  Differences and relationships between data (showing graphs)
-4.  Training of data
-5.  Inference (show graphs and accuracy)
-6.  Pratical use (create an endpoint and basic html that uses our model)
+1.  What kind of model do we use to train and why 
+2.  Cleaning and preparation of data 
+3.  Differences and relationships between data (showing graphs) - (Zhang)
+4.  Training of data (victor)
+5.  Inference (show graphs and accuracy) (yuan)
+6. Integrate with open cv (liu & Yao)
+7.  Pratical use (create an endpoint and basic html that uses our model) (liu & Yao)
