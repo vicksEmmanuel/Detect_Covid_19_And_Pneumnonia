@@ -4,11 +4,11 @@
 
 ### Include your name and ID here:
 
+    1. Victor Umesiobi Q2094871
     2.Jingqi Yuan P1179164
     3.
     4.Dingding Yao P1180133
     5.Ruchen Liu (p1180236)
-    
 
 ### Problem Statement
 
