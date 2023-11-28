@@ -69,8 +69,8 @@ for category in os.listdir(main_folder_path):
 data = np.array(data)
 labels = np.array(labels)
 
-#print("Data shape:", data.shape)
-#print("Labels shape:", labels.shape)
+print("Data shape:", data.shape)
+print("Labels shape:", labels.shape)
 #check shape
 
 
