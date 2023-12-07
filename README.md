@@ -6,12 +6,20 @@
 
     1. Victor Umesiobi Q2094871
     2.Jingqi Yuan P1179164
+<<<<<<< HEAD
     3. Jieyun Zhang P1180504
+=======
+    3.
+>>>>>>> 639c2d8bd85ea9de327c68c531ffabfbb12a842d
     4.Dingding Yao P1180133
     5.Ruchen Liu (p1180236)
 
 ### Problem Statement
 
+<<<<<<< HEAD
+=======
+Hello World
+>>>>>>> 639c2d8bd85ea9de327c68c531ffabfbb12a842d
 `In 2020, covid hit the world, and we have x-ray images of the chest region and we want to be able to easily detect covid and its difference from pnemonia`
 
 ### Dataset
