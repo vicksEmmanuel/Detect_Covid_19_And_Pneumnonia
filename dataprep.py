@@ -22,7 +22,7 @@ def distribute_files(src_folder, class_name, file_list, train_pct=0.6, val_pct=0
     train_count = int(total_files * train_pct)
     val_count = int(total_files * val_pct)
 
-    train_files = file_list[:train_count]
+    train_files = file_list[:train_count] #from the first element to the (train count) element
     val_files = file_list[train_count:train_count + val_count]
     test_files = file_list[train_count + val_count:]
 
