@@ -40,16 +40,18 @@ class ImageDataset(Dataset):
             print(f"Index: {index}, Dataset Size: {len(self.all_images)}")
             try:
                 image_path, label = self.all_images[index]
+                # every element in all_images is tuple (full_path, class_name) and they are separately valued to image path and value
                 image = cv2.imread(image_path)
                 if image is None:
                     raise FileNotFoundError(f"Unable to load image at {image_path}")
                 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-                image = Image.fromarray(image)
+                image = Image.fromarray(image) #convert to PIL
                 if self.transform:
                     image = self.transform(image)
                 label_idx = self.label_to_idx(label)
                 label_tensor = torch.tensor(label_idx, dtype=torch.long)
-
+#converts a numeric index to a PyTorch tensor.(basic data structures in PyTorch, similar to NumPy arrays)
+#dtype=torch.long specifies that the tensor's datatype is a 64-bit integer, which is typically used to represent labels.
                 print(f"Loaded image at {image_path} with label {label}")
 
                 return image, label_tensor
