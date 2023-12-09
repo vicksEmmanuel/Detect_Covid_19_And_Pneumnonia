@@ -1,3 +1,4 @@
+import pickle
 import torch
 from pathlib import Path
 import cv2
@@ -9,7 +10,7 @@ from PIL import Image
 
 
 # Define the path to your random image
-image_path = "val/covid/23E99E2E-447C-46E5-8EB2-D35D12473C39-1068x801.png"
+image_path = "train/covid/1B734A89-A1BF-49A8-A1D3-66FAFA4FAC5D-768x635.jpeg"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 NUM_CLASSES = 3
 
@@ -50,3 +51,7 @@ predicted_label = class_labels[predicted_class.item()]
 
 # Print the predicted label
 print(f"Predicted Class: {predicted_label}")
+
+
+with open("model.pkl", "wb") as f:
+    pickle.dump(model, f)
