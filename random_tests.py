@@ -55,3 +55,8 @@ print(f"Predicted Class: {predicted_label}")
 
 with open("model.pkl", "wb") as f:
     pickle.dump(model, f)
+
+traced_model = torch.jit.trace(model, image.unsqueeze(0))
+
+# Save the traced model
+torch.jit.save(traced_model, "mobile.pt")
