@@ -6,7 +6,7 @@ import { Platform } from 'react-native';
 const useModel = () => {
 	const uploadAndProcessImage = (file: CameraCapturedPicture) => {
 		return new Promise((resolve, reject) => {
-			let url = `https://illness-detector-1gyp.onrender.com/predict`;
+			let url = `http://127.0.0.1:8000/predict`;
 
 			const fileData: any = new FormData();
 
@@ -25,6 +25,8 @@ const useModel = () => {
 				type: 'image/jpeg',
 				name: finalUri?.substring(finalUri.lastIndexOf('/') + 1),
 			});
+
+			console.log('in here');
 
 			fetch(url, {
 				method: 'POST',
