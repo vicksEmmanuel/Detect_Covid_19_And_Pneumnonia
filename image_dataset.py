@@ -1,7 +1,10 @@
 # %%
+import numpy as np
 from PIL import Image
+from torchvision import transforms
 from torch.utils.data import Dataset
 import os
+from pathlib import Path
 import cv2
 import torch
 
@@ -47,8 +50,8 @@ class ImageDataset(Dataset):
                     image = self.transform(image)
                 label_idx = self.label_to_idx(label)
                 label_tensor = torch.tensor(label_idx, dtype=torch.long)
-#converts a numeric index to a PyTorch tensor.(basic data structures in PyTorch, similar to NumPy arrays)
-#dtype=torch.long specifies that the tensor's datatype is a 64-bit integer, which is typically used to represent labels.
+                #converts a numeric index to a PyTorch tensor.(basic data structures in PyTorch, similar to NumPy arrays)
+                # #dtype=torch.long specifies that the tensor's datatype is a 64-bit integer, which is typically used to represent labels.
                 print(f"Loaded image at {image_path} with label {label}")
 
                 return image, label_tensor

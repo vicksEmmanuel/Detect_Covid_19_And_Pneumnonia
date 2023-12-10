@@ -17,7 +17,7 @@ from image_dataset import ImageDataset
 
 # %%
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu" #Specifies whether to use GPU ('cuda') or CPU ('cpu') for training; "cuda" is prior to "cpu"
-EPOCHS = 5 #Number of training epochs.
+EPOCHS = 15 #Number of training epochs.
 BATCHSIZE = 4 #Batch size used during training.
 NUM_CLASSES = 3 #Number of output classes
 #Constants and Configuration

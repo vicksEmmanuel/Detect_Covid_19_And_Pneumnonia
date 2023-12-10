@@ -26,6 +26,7 @@ def create_app():
     @app.route('/predict', methods=['POST'])
     def predict():
         if request.method == 'POST':
+            print("About to process image")
             # Convert the Image from request to a PIL Image
             image = Image.open(io.BytesIO(request.files['image'].read()))
 
@@ -40,11 +41,14 @@ def create_app():
             input_tensor = preprocess(image)
             input_batch = input_tensor.unsqueeze(0)
 
+
             # Run inference
             with torch.no_grad():
                 output = model(input_batch)  # Unsqueeze to add a batch dimension (batch size of 1)
                 _, predicted_class = torch.max(output, 1)
 
+            print(output)
+            print(predicted_class)
             # Return the response as JSON
 
             class_labels = ["covid", "normal", "pneumonia"]
