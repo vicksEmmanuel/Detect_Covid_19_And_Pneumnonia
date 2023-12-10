@@ -6,3 +6,4 @@ seaborn
 pathlib
 scikit-learn
 torchvision
+gunicorn
