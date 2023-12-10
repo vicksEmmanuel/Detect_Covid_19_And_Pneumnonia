@@ -1,6 +1,6 @@
+import { Camera, CameraType } from 'expo-camera';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Camera, Image } from 'react-native-pytorch-core';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import useModel from './hooks/useModel';
 
 import usePermissions from './hooks/usePermissions';
@@ -8,7 +8,7 @@ import usePermissions from './hooks/usePermissions';
 export default function App() {
   usePermissions();
 
-  const {preprocessImage, getResult, understandResult} = useModel();
+  const {uploadAndProcessImage} = useModel();
 
   const processAndRunModel = async (image: Image) => {
     const value = await preprocessImage(image);
@@ -27,10 +27,13 @@ export default function App() {
 
   return (
     <View style={StyleSheet.absoluteFill}>
-      <Camera
-        style={[StyleSheet.absoluteFill, {backgroundColor: 'black'}]}
-        onCapture={processAndRunModel}
-      />
+     <Camera style={[StyleSheet.absoluteFill]} type={CameraType.back}>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
+            <Text style={styles.text}>Flip Camera</Text>
+          </TouchableOpacity>
+        </View>
+      </Camera>
     </View>
   );
 }

@@ -1,90 +1,59 @@
 /** @format */
 
-import { useEffect, useState } from 'react';
-import {
-	Image,
-	MobileModel,
-	Tensor,
-	media,
-	torch,
-	torchvision,
-} from 'react-native-pytorch-core';
-
-const T = torchvision.transforms;
+import { Platform } from 'react-native';
 
 const useModel = () => {
-	const [ptModel, setPtModel] = useState<string | null>(null);
-	const downloadModel = async () => {
-		const url =
-			'https://github.com/vicksEmmanuel/Detect_Covid_19_And_Pneumnonia/raw/main/model.pth';
+	const uploadAndProcessImage = (file: any) => {
+		return new Promise((resolve, reject) => {
+			let url = `https://illness-detector-1gyp.onrender.com/predict`;
 
-		try {
-			const filePath = await MobileModel.download(url);
-			return filePath;
-		} catch (error) {
-			console.error('Error downloading file:', error);
-		}
+			const fileData: any = new FormData();
+
+			let finalUri = file.uri;
+
+			if (Platform.OS === 'android' && !file.uri.startsWith('file://')) {
+				finalUri = 'file://' + file.uri;
+			}
+
+			if (Platform.OS === 'ios' && !file.uri.startsWith('file:///')) {
+				finalUri = 'file://' + file.uri;
+			}
+
+			fileData.append('file', {
+				uri: finalUri,
+				type: 'image/jpeg',
+				name: finalUri?.substring(finalUri.lastIndexOf('/') + 1),
+			});
+
+			fetch(url, {
+				method: 'POST',
+				headers: {
+					accept: '*/*',
+					'Content-Type': 'multipart/form-data',
+				},
+				body: fileData,
+			})
+				.then((response) => {
+					if (!response.ok) {
+						reject(response);
+					}
+					return response.json();
+				})
+				.then((data) => {
+					return resolve(data?.imageUrl);
+				})
+				.catch((error) => {
+					console.error(
+						'There was a problem with the fetch operation:',
+						JSON.stringify(error)
+					);
+					reject(error);
+				});
+		});
 	};
-
-	const initInferenceSession = async () => {
-		try {
-			const model = await downloadModel();
-
-			setPtModel(model!);
-		} catch (e) {
-			console.log(e);
-		}
-	};
-
-	useEffect(() => {
-		initInferenceSession();
-	}, []);
 
 	return {
-		ptModel,
-		getResult: async (tensor: Tensor) => {
-			try {
-				const model = await torch.jit._loadForMobile(ptModel!);
-				const output = await model.forward<any, Tensor>(tensor);
-				return output;
-			} catch (e) {
-				console.log(e);
-			}
-		},
-		preprocessImage: async (image: Image) => {
-			const width = image.getWidth();
-			const height = image.getHeight();
-
-			const blob = media.toBlob(image);
-			let tensor = torch.fromBlob(blob, [height, width, 3]);
-
-			const resize = T.resize(224);
-			const grayscale = T.grayscale(1);
-			// tensor = tensor.permute([2, 0, 1]);
-			// tensor = tensor.div(255);
-			const centerCrop = T.centerCrop(Math.min(width, height));
-			tensor = centerCrop(tensor);
-			tensor = resize(tensor);
-			tensor = grayscale(tensor);
-
-			const normalize = T.normalize(
-				[0.485, 0.456, 0.406],
-				[0.229, 0.224, 0.225]
-			);
-			tensor = normalize(tensor);
-			tensor = tensor.unsqueeze(0);
-
-			console.log(tensor, 'd=d-d=d');
-
-			return tensor;
-		},
-
-		understandResult: (result: Tensor) => {
-			const maxIdx = result.argmax().item();
-			const classes = ['Covid', 'Normal', 'Pneumonia'];
-			const className = classes[maxIdx];
-			return className;
-		},
+		uploadAndProcessImage,
 	};
 };
 
