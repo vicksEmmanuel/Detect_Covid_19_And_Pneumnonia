@@ -26,10 +26,11 @@ def create_app():
     @app.route('/predict', methods=['POST'])
     def predict():
         if request.method == 'POST':
-            print("About to process image")
+            print("About to read image")
             # Convert the Image from request to a PIL Image
             image = Image.open(io.BytesIO(request.files['image'].read()))
 
+            print("About to process image")
             # Preprocess the image and prepare it for your model
             preprocess =  transforms.Compose([
                 transforms.Resize((224, 224)),
@@ -38,10 +39,11 @@ def create_app():
                 transforms.ToTensor(),
                 transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
             ])
+
             input_tensor = preprocess(image)
             input_batch = input_tensor.unsqueeze(0)
 
-
+            print("About to run inference")
             # Run inference
             with torch.no_grad():
                 output = model(input_batch)  # Unsqueeze to add a batch dimension (batch size of 1)
