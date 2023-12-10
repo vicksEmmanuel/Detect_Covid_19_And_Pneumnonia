@@ -5,3 +5,4 @@ opencv-python
 seaborn
 pathlib
 scikit-learn
+torchvision
