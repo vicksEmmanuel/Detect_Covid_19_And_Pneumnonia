@@ -1,4 +1,3 @@
-import pickle
 import torch
 from pathlib import Path
 import cv2

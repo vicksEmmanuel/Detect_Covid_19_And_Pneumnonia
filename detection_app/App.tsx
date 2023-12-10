@@ -1,6 +1,6 @@
 import { Camera, CameraType } from 'expo-camera';
-import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, View } from 'react-native';
 import useModel from './hooks/useModel';
 
 import usePermissions from './hooks/usePermissions';
@@ -9,30 +9,25 @@ export default function App() {
   usePermissions();
 
   const {uploadAndProcessImage} = useModel();
+  const cameraRef = React.useRef<Camera>(null);
 
-  const processAndRunModel = async (image: Image) => {
-    const value = await preprocessImage(image);
-    console.log('value', value);
+  useEffect(() =>{
+    const interval = setInterval(async () => {
+      if (cameraRef.current) {
+        const image = await cameraRef.current.takePictureAsync({ base64: true });
+        const result = await uploadAndProcessImage(image);
+      }
+    }, 5000);
 
-    const result = await getResult(value);
-
-    console.log('result', result);
-
-    if (result) {
-      const classes = await understandResult(result);
-
-      console.log('classes', classes);
-    }
-  };
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   return (
     <View style={StyleSheet.absoluteFill}>
-     <Camera style={[StyleSheet.absoluteFill]} type={CameraType.back}>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
-            <Text style={styles.text}>Flip Camera</Text>
-          </TouchableOpacity>
-        </View>
+     <Camera ref={cameraRef} style={[StyleSheet.absoluteFill]} type={CameraType.back}>
+       
       </Camera>
     </View>
   );

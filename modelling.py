@@ -1,7 +1,5 @@
 # %%
 from datetime  import datetime
-import cv2
-import torchvision
 from torchvision import datasets, models, transforms
 from torch.optim import lr_scheduler
 import torchvision.models as models
@@ -11,10 +9,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import torch
 import torch.nn as nn
-from tqdm import tqdm
 import numpy as np
-import urllib.request
-import ssl
 import seaborn as sns
 import matplotlib.pyplot as plt
 

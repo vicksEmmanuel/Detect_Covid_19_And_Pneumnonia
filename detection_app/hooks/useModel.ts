@@ -1,9 +1,10 @@
 /** @format */
 
+import { CameraCapturedPicture } from 'expo-camera';
 import { Platform } from 'react-native';
 
 const useModel = () => {
-	const uploadAndProcessImage = (file: any) => {
+	const uploadAndProcessImage = (file: CameraCapturedPicture) => {
 		return new Promise((resolve, reject) => {
 			let url = `https://illness-detector-1gyp.onrender.com/predict`;
 
