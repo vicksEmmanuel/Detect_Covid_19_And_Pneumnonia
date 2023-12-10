@@ -26,7 +26,7 @@ test_dataloader = DataLoader(test_dataset, batch_size=BATCHSIZE, shuffle=True)
 
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-model = models.densenet121(pretrained=False)
+model = models.densenet121(pretrained=False) #Using an untrained model
 num_ftrs = model.classifier.in_features
 model.classifier = nn.Linear(num_ftrs, NUM_CLASSES)
 model.load_state_dict(torch.load("model.pth"))
