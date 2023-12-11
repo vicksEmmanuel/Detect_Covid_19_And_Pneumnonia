@@ -24,13 +24,16 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Change directory to python-app
+        working-directory: ./api
+
       - name: Create and start virtual environment
         run: |
           python -m venv venv
           source venv/bin/activate
 
       - name: Install dependencies
-        run: pip install -r api/requirements.txt
+        run: pip install -r requirements.txt
 
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
