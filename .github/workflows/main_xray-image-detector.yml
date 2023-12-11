@@ -25,7 +25,7 @@ jobs:
           python-version: '3.11'
 
       - name: Change directory to python-app
-        working-directory: ./api
+        run: cd api
 
       - name: Create and start virtual environment
         run: |
