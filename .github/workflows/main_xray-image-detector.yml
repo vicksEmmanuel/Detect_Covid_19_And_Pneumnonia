@@ -45,7 +45,7 @@ jobs:
         with:
           name: python-app
           path: |
-            ./release.zip
+            ./api/release.zip
             !venv/
 
   deploy:
@@ -60,6 +60,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: python-app
+          path: ./api
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
@@ -71,3 +72,4 @@ jobs:
           app-name: 'xray-image-detector'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AB52D62636A944B1A02FC37C39C54DC6 }}
+          package: ./api
