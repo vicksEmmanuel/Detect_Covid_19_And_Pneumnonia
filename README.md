@@ -27,3 +27,12 @@
 5.  Inference (show graphs and accuracy) (yuan)
 6.  Integrate with open cv (liu & Yao)
 7.  Pratical use (phone application uses our model) (liu & Yao)
+
+`Accuracy: 88.98%
+Precision: 89.55%
+Recall: 88.98%
+F1 Score: 89.02%
+Confusion Matrix:
+[[421  26   4]
+ [ 39 418   7]
+ [ 16  60 388]]`
