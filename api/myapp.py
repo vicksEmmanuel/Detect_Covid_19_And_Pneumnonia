@@ -8,18 +8,20 @@ import io
 
 
 
+ # Load your model
+# DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+NUM_CLASSES = 3
+model = models.densenet121(pretrained=False)
+num_ftrs = model.classifier.in_features
+model.classifier = nn.Linear(num_ftrs, NUM_CLASSES)
+model.load_state_dict(torch.load("model.pth"))
+print("Model loaded")
+# model.to(DEVICE)
+model.eval()
+
+
 
 def create_app():
-    # Load your model
-    DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-    NUM_CLASSES = 3
-    model = models.densenet121(pretrained=False)
-    num_ftrs = model.classifier.in_features
-    model.classifier = nn.Linear(num_ftrs, NUM_CLASSES)
-    model.load_state_dict(torch.load("model.pth"))
-    model.to(DEVICE)
-    model.eval()
-
     app = Flask(__name__)
 
     @app.route('/')
@@ -62,5 +64,3 @@ def create_app():
             return jsonify(result=predicted_label)
 
     return app
-
-
