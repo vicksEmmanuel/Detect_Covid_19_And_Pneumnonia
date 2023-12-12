@@ -6,7 +6,7 @@ import { Platform } from 'react-native';
 const useModel = () => {
 	const uploadAndProcessImage = (file: CameraCapturedPicture) => {
 		return new Promise((resolve, reject) => {
-			let url = `http://127.0.0.1:8000/predict`;
+			let url = `http://4.227.170.232:8080/predict`;
 
 			const fileData: any = new FormData();
 
@@ -20,7 +20,7 @@ const useModel = () => {
 				finalUri = 'file://' + file.uri;
 			}
 
-			fileData.append('file', {
+			fileData.append('image', {
 				uri: finalUri,
 				type: 'image/jpeg',
 				name: finalUri?.substring(finalUri.lastIndexOf('/') + 1),
@@ -43,7 +43,7 @@ const useModel = () => {
 					return response.json();
 				})
 				.then((data) => {
-					return resolve(data?.imageUrl);
+					return resolve(data);
 				})
 				.catch((error) => {
 					console.error(
