@@ -44,6 +44,7 @@ class ImageDataset(Dataset):
                 image = cv2.imread(image_path)
                 if image is None:
                     raise FileNotFoundError(f"Unable to load image at {image_path}")
+                image = cv2.fastNlMeansDenoisingColored(image, None, 10, 10, 7, 21)
                 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
                 image = Image.fromarray(image) #convert to PIL
                 if self.transform:
