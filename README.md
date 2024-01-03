@@ -41,7 +41,7 @@ Confusion Matrix:
 
 #### To Run the Project on Mobile
 
-Install the android apk on your phone and scan x-ray images [Download X-ray Detector Android App](https://expo.dev/artifacts/eas/xkhSvmGsrMQyzcvhCLc3jc.apk)
+Install the android apk on your phone and scan x-ray images [Download X-ray Detector Android App](https://expo.dev/artifacts/eas/YpZwje6o3tYBYvN1NfWuR.apk)
 
 #### To Run the Project without Mobile Application
 
