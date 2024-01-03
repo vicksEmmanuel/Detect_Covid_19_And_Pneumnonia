@@ -6,7 +6,7 @@ import { Platform } from 'react-native';
 const useModel = () => {
 	const uploadAndProcessImage = (file: CameraCapturedPicture) => {
 		return new Promise((resolve, reject) => {
-			let url = `http://4.227.170.232:8080/predict`;
+			let url = `http://ec2-16-170-250-17.eu-north-1.compute.amazonaws.com/predict`;
 
 			const fileData: any = new FormData();
 
